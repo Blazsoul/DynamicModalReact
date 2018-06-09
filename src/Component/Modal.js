@@ -32,12 +32,13 @@ const Modal = props => {
     props.onClose(props.id);
   };
 
-  const checkAndRenderTransition = () => {
-      if(props.isOpen){
+  const withTransitionCheck = () => {
 
-          if('transition' in props && props.transition){
+    const {transition,isOpen} = props;
+
+      if(isOpen){
+          if(transition){
               return (
-                  
                       <ReactCSSTransitionGroup
                       transitionName={props.transition}
                       transitionAppear={true}
@@ -57,23 +58,23 @@ const Modal = props => {
 
   const renderModal = () => {
 
+    const {style,defaultStyle,render} = props;
+
       return (
           <div>
                 <div
                 className={props.defaultStyle ? "modal-overlay" : null}
-                style={"style" in props && "overlay" in props.style? props.style.overlay: null
-                }
+                style={style && "overlay" in style ? style.overlay : null}
                 />
                 <div role="dialog">
                     <FocusLock>
                         <div
                         role="document"
                         ref={node => {this.modalContent = node;}}
-                        className={props.defaultStyle ? "modal-contnet" : null}
-                        style={"style" in props && "content" in props.style? props.style.content: null
-                        }
+                        className={defaultStyle ? "modal-contnet" : null}
+                        style={style && "content" in style ? style.content : null}
                         >
-                        {props.children}
+                        {render(handleCloseModal)}
                         </div>
                     </FocusLock>
                 </div>
@@ -82,6 +83,7 @@ const Modal = props => {
     }
   
 
-  return <section>{checkAndRenderTransition()}</section>;
+  // return <section>{checkAndRenderTransition()}</section>;
+  return <section>{(withTransitionCheck())}</section>;
 };
 export default Modal;

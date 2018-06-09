@@ -16,6 +16,7 @@ class App extends Component {
   state = {
     firstModalIsOpen : false,
     secondModalIsOpen : false,
+    thirdModalIsOpen : false,
     prvFocusElm : null
   }
   openModal = (modalName) => {
@@ -54,36 +55,48 @@ class App extends Component {
           isOpen={this.state.firstModalIsOpen} 
           onClose={this.closeModal} 
           defaultStyle={true}
-          style={customStyles}
-          transition="fade"
-          >
-          <div className="flex dir-col">
-            <h3>First Modal Content</h3>
-            <label>Name:
-                <input type="text"/> </label>
-            <label>Email:
-                <input type="email"/></label>
-          </div>
-        </Modal>
+          render={(closeCallback) => {
+            return (
+            <div className="flex dir-col">
+              <h3>First Modal Content</h3>
+              <label>Name:
+                  <input type="text"/> </label>
+              <label>Email:
+                  <input type="email"/></label>
+              <div>
+                <button onClick={closeCallback}>Close</button>
+              </div>
+            </div>  
+            )
+          }}
+          />
+
 
         <Modal
-          id="secondModalIsOpen"
-          isOpen={this.state.secondModalIsOpen} 
-          onClose={this.closeModal} 
-          defaultStyle={true}
-          
-         >
+        id="secondModalIsOpen"
+        isOpen={this.state.secondModalIsOpen} 
+        onClose={this.closeModal}
+        defaultStyle={true} 
+        style={customStyles}
+        transition="fade"
+        render={(closeCallback) => {
+          return(
+                  <div className="flex dir-col">
+                    <h3>Third Modal Content</h3>
+                    <label>Name:
+                        <input type="text"/></label>
+                    <label>Email:
+                        <input type="email"/></label>
+                    <label>Password:
+                        <input type="password"/></label>
+                        <div>
+                            <button onClick={closeCallback} >Close</button>
+                        </div>
+                  </div>
+          )
+        }}
+        />
 
-          <div className="flex dir-col">
-            <h3>Second Modal Content</h3>
-            <label>Name:
-                <input type="text"/> </label>
-            <label>Email:
-                <input type="email"/></label>
-            <label>Password:
-                <input type="password"/></label>
-          </div>
-        </Modal>
        
       </div>
     );
