@@ -74,7 +74,7 @@ const Modal = props => {
                         className={defaultStyle ? "modal-contnet" : null}
                         style={style && "content" in style ? style.content : null}
                         >
-                        {render(handleCloseModal)}
+                           {render(handleCloseModal)}
                         </div>
                     </FocusLock>
                 </div>
@@ -82,8 +82,7 @@ const Modal = props => {
       );
     }
   
-
-  // return <section>{checkAndRenderTransition()}</section>;
   return <section>{(withTransitionCheck())}</section>;
+  
 };
 export default Modal;
