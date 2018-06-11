@@ -2,35 +2,29 @@ import React, { Component } from 'react';
 import Modal from './Component/Modal'
 import './css/App.css';
 
-const customStyles = {
-  overlay : {
-    backgroundColor: 'rgba(61, 51, 153, 0.719)',
-  },
-  content : {
-    padding : '50px',
-    borderRadius : '10px',
-  }
+const customStylesClasses = {
+  overlay : "custom-overlay",
+  content : "custom-content",
 };
 
 class App extends Component {
   state = {
     firstModalIsOpen : false,
     secondModalIsOpen : false,
-    thirdModalIsOpen : false,
     prvFocusElm : null
   }
   openModal = (modalName) => {
 
     this.sectionContent.setAttribute("aria-hidden",true)
-    this.setState({[modalName] : !this.state[modalName]})
-    this.setState({prvFocusElm : document.activeElement})
+    window.lol = document.activeElement;
+    this.setState({[modalName] : !this.state[modalName],prvFocusElm : document.activeElement})
   }
 
   closeModal = (modalName) => {
 
     this.sectionContent.setAttribute("aria-hidden",false)
-    this.setState({[modalName] : !this.state[modalName]})
-    this.state.prvFocusElm.focus();
+    this.setState({[modalName] : !this.state[modalName]},
+      () => {this.state.prvFocusElm.focus()}) //callback after Setstate done
   }
  
   render() {
@@ -51,7 +45,7 @@ class App extends Component {
          
 
         <Modal 
-          id="firstModalIsOpen"        //id must be equal to the state name - in order to support multifply modals
+          parentId="firstModalIsOpen"        //parentId must be equal to the state name - in order to support multifply modals
           isOpen={this.state.firstModalIsOpen} 
           onClose={this.closeModal} 
           defaultStyle={true}
@@ -73,16 +67,16 @@ class App extends Component {
 
 
         <Modal
-        id="secondModalIsOpen"
+        parentId="secondModalIsOpen"
         isOpen={this.state.secondModalIsOpen} 
         onClose={this.closeModal}
         defaultStyle={true} 
-        style={customStyles}
+        style={customStylesClasses}
         transition="fade"
         render={(closeCallback) => {
           return(
                   <div className="flex dir-col">
-                    <h3>Third Modal Content</h3>
+                    <h3>Second Modal Content</h3>
                     <label>Name:
                         <input type="text"/></label>
                     <label>Email:
@@ -94,8 +88,7 @@ class App extends Component {
                         </div>
                   </div>
           )
-        }}
-        />
+        }}/>
 
        
       </div>

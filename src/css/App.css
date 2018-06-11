@@ -1,20 +1,17 @@
 @import './helpers.css';
-
-.App {
-  text-align: center;
-}
-
 body{
   margin:0;
   padding: 20px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.App {
+  text-align: center;
 }
-
-.App-intro {
-  font-size: large;
+.custom-overlay{
+  background-color: rgba(31, 102, 160, 0.589)
+}
+.custom-content{
+  border-radius: 10px;
 }
 
 input,button {
