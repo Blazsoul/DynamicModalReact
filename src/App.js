@@ -14,14 +14,11 @@ class App extends Component {
     prvFocusElm : null
   }
   openModal = (modalName) => {
-
     this.sectionContent.setAttribute("aria-hidden",true)
-    window.lol = document.activeElement;
     this.setState({[modalName] : !this.state[modalName],prvFocusElm : document.activeElement})
   }
 
   closeModal = (modalName) => {
-
     this.sectionContent.setAttribute("aria-hidden",false)
     this.setState({[modalName] : !this.state[modalName]},
       () => {this.state.prvFocusElm.focus()}) //callback after Setstate done
@@ -64,7 +61,6 @@ class App extends Component {
             )
           }}
           />
-
 
         <Modal
         parentId="secondModalIsOpen"
